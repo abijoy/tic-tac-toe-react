@@ -21,6 +21,7 @@ function Board({ squares, xIsNext, onPlay }) {
     // creating shallow copy of the current square array
     const nextSquares = squares.slice()
 
+
     // check if this square is already clicked once
     nextSquares[i] = xIsNext === true ? 'X' : 'O';
 
@@ -94,10 +95,11 @@ export default function Game() {
 
   const [history, setHistory] = useState([Array(9).fill(null)]);
   const [currentMove, setCurrentMove] = useState(0);
+  const [ascending, setAscending] = useState(true);
 
   const xIsNext = currentMove % 2 === 0;
   const currentSquares = history[currentMove];
-
+  const displayOrder = ascending ? 'ASC' : 'DESC';
 
   function handlePlay(nextSquares) {
     const nextHistory = [...history.slice(0, currentMove + 1), nextSquares]
@@ -107,6 +109,10 @@ export default function Game() {
 
   function jumpTo(move) {
     setCurrentMove(move);
+  }
+
+  function toggleDisplayOrder() {
+    setAscending(!ascending);
   }
 
   const moves = history.map((squares, move) => {
@@ -136,7 +142,8 @@ export default function Game() {
       </div>
 
       <div className="game-info">
-        <ol> {moves} </ol>
+        <button onClick={toggleDisplayOrder}>{displayOrder}</button>
+        <ol> { ascending ? moves: moves.slice().reverse()} </ol>
       </div>
     </div>
   )
