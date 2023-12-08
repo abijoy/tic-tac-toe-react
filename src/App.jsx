@@ -2,7 +2,6 @@ import { useState } from "react";
 
 
 function Square({ value, onSquareClick, winner=false }) {
-  console.log(winner)
   let squareClass = `square ${winner ? 'winning-square' : ''}`;
   return (
     <button className={squareClass} onClick={onSquareClick}>
@@ -30,12 +29,10 @@ function Board({ squares, xIsNext, onPlay }) {
     onPlay(nextSquares)
   }
 
-  // console.log(checkWinner(squares))
   const winning_info = checkWinner(squares);
   const winner = winning_info ? winning_info[0] : null;
   const winning_line = winning_info ? winning_info[1] : [];
-  console.log(winning_line)
-  console.log(squares)
+
   let status;
   if (winner) {
     status = `Winner is: ${winner}`;
@@ -54,7 +51,7 @@ function Board({ squares, xIsNext, onPlay }) {
     return winning_line.includes(i) 
   }
 
-  
+
   return (
     <>
       <div className="status">{status}</div>
@@ -90,7 +87,6 @@ function checkWinner(squares) {
     [0, 4, 8],
     [2, 4, 6]
   ]
-  // console.log(squares)
 
   for (let i = 0; i < winner_lines.length; i++) {
     const [a, b, c] = winner_lines[i];
